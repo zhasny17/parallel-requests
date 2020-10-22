@@ -5,7 +5,7 @@ session = requests.Session()
 
 URLS = [f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{number}.png' for number in range(1, 151)]
 
-def main():
+def main() -> None:
     for url in URLS:
         try:
             response = session.get(url)

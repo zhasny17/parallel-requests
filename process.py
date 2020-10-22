@@ -24,7 +24,7 @@ class Consumer(Process):
             task.process()
 
 
-class Task():
+class Task:
     def __init__(self, url):
         self.url = url
 
@@ -41,7 +41,7 @@ class Task():
             pass
 
 
-def main():
+def main() -> None:
     task_queue = JoinableQueue()
     consumers = [Consumer(task_queue) for _ in range(CONSUMERS_NUMBER)]
 
