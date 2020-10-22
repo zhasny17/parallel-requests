@@ -5,9 +5,13 @@ import os
 URLS = [f'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/{number}.png' for number in range(1, 151)]
 
 
-async def save_image(image_content: bytes, image_name: str) -> None:
+def check_dir() -> None:
     if not os.path.exists('images/async_alg/'):
         os.makedirs('images/async_alg/')
+
+
+async def save_image(image_content: bytes, image_name: str) -> None:
+    check_dir()
     with open(f'images/async_alg/{image_name}', 'wb') as f:
         f.write(image_content)
 

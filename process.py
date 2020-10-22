@@ -15,7 +15,7 @@ class Consumer(Process):
         self.task_queue = task_queue
 
     # overwrite run method from Process class called by start method
-    def run(self):
+    def run(self) -> None:
         while True:
             task = self.task_queue.get() # waits for a task here until get one! (lock)
             if task is None or not isinstance(task, Task):
@@ -25,15 +25,19 @@ class Consumer(Process):
 
 
 class Task:
-    def __init__(self, url):
+    def __init__(self, url) -> None:
         self.url = url
 
-    def process(self):
+    @staticmethod
+    def check_dir() -> None:
+        if not os.path.exists('images/process_alg/'):
+            os.makedirs('images/process_alg/')
+
+    def process(self) -> None:
         try:
             response = session.get(self.url)
             if response.ok:
-                if not os.path.exists('images/process_alg/'):
-                    os.makedirs('images/process_alg/')
+                self.check_dir()
                 image_name = self.url.split('pokemon/')[1]
                 with open(f'images/process_alg/{image_name}', 'wb') as f:
                     f.write(response.content)
